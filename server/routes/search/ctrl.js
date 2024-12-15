@@ -1,4 +1,4 @@
-const dbconnection = require('../../connections/database'); // Import the dbconnection
+const dbconnection = require('../../connections/database'); 
 
 async function searchBookResults(req, res) {
     try {
@@ -20,10 +20,9 @@ async function searchBookResults(req, res) {
 
         console.log('Executing query:', sqlQuery);
 
-        // Perform the query using dbconnection (which supports promises now)
-        const [results, fields] = await dbconnection.query(sqlQuery, params); // Use async/await with query
+        const [results, fields] = await dbconnection.query(sqlQuery, params);
 
-        res.send(results);  // Send the results to the client
+        res.send(results);  
         console.log('Query results:', results);
 
     } catch (error) {

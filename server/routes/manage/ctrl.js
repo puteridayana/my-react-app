@@ -5,7 +5,7 @@ async function fetchBooks(req, res) {
     try {
         const [rows, fields] = await dbconnection.query('SELECT * FROM books;');
         console.log('Books:', rows);
-        res.status(200).json(rows); // Send the response back to the client
+        res.status(200).json(rows); 
     } catch (error) {
         console.error('Error fetching books:', error);
         res.status(500).send({ error: 'An error occurred while fetching the books.' });

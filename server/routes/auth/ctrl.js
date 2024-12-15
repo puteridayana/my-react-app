@@ -20,13 +20,12 @@ const register = async (req, res) => {
   }
 };
 
-// Login User
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
     const query = 'SELECT * FROM users WHERE username = ?';
-    const [rows] = await dbconnection.query(query, [username]); // Directly await query
+    const [rows] = await dbconnection.query(query, [username]); 
     if (rows.length === 0) {
       return res.status(404).send({ error: 'User not found' });
     }
