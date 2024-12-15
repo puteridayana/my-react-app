@@ -1,34 +1,50 @@
-/* Manage Book - Input Container */
-.managebook-search-container {
-    margin-left: 10px;
-    margin-top: 1%;
-    width: 120%;
-  }
-  
-  /* Manage Book - Button Style */
-  .managebook-submit-button {
-    font-size: 12px;
-    background-color: #004B85; /* Change color if necessary */
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .managebook-submit-button:hover {
-    background-color: #003B6F; /* Hover effect */
-  }
-  
-  /* Button span icon */
-  .managebook-search-span {
-    margin-left: 5px;
-  }
-  
-  /* Optional: If you want to style a specific section of the page */
-  .managebook-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
+/* styles.css */
+
+.container-form {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.title {
+  display: flex;
+  align-items: left;
+  margin-left: 10px;
+  font-weight: bold;
+  color: #2b59a2;
+  font-size: 30px;
+  margin-bottom: 10px;
+  margin-top: 2px;
+}
+
+.title2 {
+  display: flex;
+  align-items: left;
+  margin-left: 10px;
+  font-weight: bold;
+  color: #2b59a2;
+  font-size: 30px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+input[type="text"] {
+  width: 230px;
+}
+
+.param-div {
+  width: 120px;
+  font-weight: 700;
+  color: #2b59a2;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+
+
+.box-batch-1 {
+  width: 45%;
+}

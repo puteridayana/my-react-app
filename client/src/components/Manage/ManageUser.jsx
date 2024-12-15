@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Button, ListGroup } from 'react-bootstrap';
+import '../../styles/style.css';
+import "bootstrap/dist/css/bootstrap.css";
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
@@ -51,31 +54,44 @@ const ManageUsers = () => {
 
     return (
         <div>
-            <h2>Add New User</h2>
-            <input
-                type="text"
-                name="username"
-                value={user.username}
-                placeholder="Username"
-                onChange={handleChange}
-            />
-            <input
-                type="email"
-                name="email"
-                value={user.email}
-                placeholder="Email"
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="role"
-                value={user.role}
-                placeholder="Role"
-                onChange={handleChange}
-            />
-            <button onClick={addUser}>Add User</button>
+            <h5 className="title">Add New User</h5>
+            <div className="d-flex mb-2">
+                <input
+                    type="text"
+                    name="username"
+                    value={user.username}
+                    placeholder="Username"
+                    onChange={handleChange}
+                    className="form-control me-2"
+                    style={{ flex: '1', minWidth: '200px' }}
+                />
+                <input
+                    type="email"
+                    name="email"
+                    value={user.email}
+                    placeholder="Email"
+                    onChange={handleChange}
+                    className="form-control me-2"
+                    style={{ flex: '1', minWidth: '200px' }}
+                />
+                <input
+                    type="text"
+                    name="role"
+                    value={user.role}
+                    placeholder="Role"
+                    onChange={handleChange}
+                    className="form-control me-2"
+                    style={{ flex: '1', minWidth: '200px' }}
+                />
+                <button
+                    onClick={addUser}
+                    className="btn btn-primary"
+                >
+                    Add User
+                </button>
+            </div>
 
-            <h2>Users List</h2>
+            <h5 className="title2">Users List</h5>
             <ul>
                 {users.map((user) => (
                     <li key={user.id}>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
+import { Button, ListGroup } from 'react-bootstrap';
+import '../../styles/style.css';
+import "bootstrap/dist/css/bootstrap.css";
+
 
 const ManageBooks = () => {
     const [books, setBooks] = useState([]);
@@ -72,67 +75,8 @@ const ManageBooks = () => {
     };
 
     return (
-        <Container className="mt-4">
-            <h2 className="text-center mb-4">{editing ? 'Update Book' : 'Add New Book'}</h2>
-            <Form>
-                <Row className="mb-3">
-                    <Col md={6}>
-                        <Form.Group controlId="formTitle">
-                            <Form.Label>Book Title</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="title"
-                                value={book.title}
-                                placeholder="Enter book title"
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                        <Form.Group controlId="formAuthor">
-                            <Form.Label>Author</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="author"
-                                value={book.author}
-                                placeholder="Enter author name"
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row className="mb-3">
-                    <Col md={6}>
-                        <Form.Group controlId="formGenre">
-                            <Form.Label>Genre</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="genre"
-                                value={book.genre}
-                                placeholder="Enter genre"
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                        <Form.Group controlId="formPublicationYear">
-                            <Form.Label>Publication Year</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="publicationYear"
-                                value={book.publicationYear}
-                                placeholder="Enter publication year"
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Button variant={editing ? 'warning' : 'primary'} onClick={editing ? updateBook : addBook}>
-                    {editing ? 'Update Book' : 'Add Book'}
-                </Button>
-            </Form>
-
-            <h2 className="text-center mt-4">Books List</h2>
+        <div>
+            <h5 className="title">Books List</h5>
             <ListGroup>
                 {books.map((book) => (
                     <ListGroup.Item key={book.id} className="d-flex justify-content-between align-items-center">
@@ -159,7 +103,55 @@ const ManageBooks = () => {
                     </ListGroup.Item>
                 ))}
             </ListGroup>
-        </Container>
+            <h5 className="title2">{editing ? 'Update Book' : 'Add New Book'}</h5>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', width: '100%' }}>
+                <input
+                    type="text"
+                    name="title"
+                    value={book.title}
+                    placeholder="Book Title"
+                    onChange={handleChange}
+                    style={{ flex: '1', minWidth: '200px' }}
+                    className="form-control"
+                />
+                <input
+                    type="text"
+                    name="author"
+                    value={book.author}
+                    placeholder="Author"
+                    onChange={handleChange}
+                    style={{ flex: '1', minWidth: '200px' }}
+                    className="form-control"
+                />
+                <input
+                    type="text"
+                    name="genre"
+                    value={book.genre}
+                    placeholder="Genre"
+                    onChange={handleChange}
+                    style={{ flex: '1', minWidth: '200px' }}
+                    className="form-control"
+                />
+                <input
+                    type="text"
+                    name="publicationYear"
+                    value={book.publicationYear}
+                    placeholder="Publication Year"
+                    onChange={handleChange}
+                    style={{ flex: '1', minWidth: '200px' }}
+                    className="form-control"
+                />
+                <button
+                    onClick={editing ? updateBook : addBook}
+                    className={`btn ${editing ? 'btn-warning' : 'btn-primary'}`}
+                    style={{ alignSelf: 'flex-end' }}
+                >
+                    {editing ? 'Update Book' : 'Add Book'}
+                </button>
+            </div>
+        </div>
+
     );
 };
 

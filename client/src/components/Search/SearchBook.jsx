@@ -31,58 +31,68 @@ const SearchBooks = () => {
     };
 
     return (
-        <div>
-            <h2>Search Books</h2>
+        <div className="container">
+            <h5 className="title">Search Books</h5>
 
             {/* Display error message if present */}
             {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
 
             {/* Input fields */}
-            <div style={{ marginBottom: '10px' }}>
+            <div className="d-flex mb-3">
                 <input
                     type="text"
                     placeholder="Search by Title"
                     value={searchTitle}
                     onChange={(e) => setSearchTitle(e.target.value)}
-                    style={{ marginRight: '10px', padding: '5px', width: '300px' }}
+                    className="form-control me-2"
+                    style={{ maxWidth: '300px' }}
                 />
                 <input
                     type="text"
                     placeholder="Search by Author"
                     value={searchAuthor}
                     onChange={(e) => setSearchAuthor(e.target.value)}
-                    style={{ marginRight: '10px', padding: '5px', width: '300px' }}
+                    className="form-control me-2"
+                    style={{ maxWidth: '300px' }}
                 />
-                <button onClick={handleSearch} style={{ padding: '5px 10px' }}>
+                <button
+                    onClick={handleSearch}
+                    className="btn btn-primary"
+                    style={{ height: '40px' }}
+                >
                     Search
                 </button>
             </div>
 
             {/* Results section */}
-            <div style={{ marginTop: '20px' }}>
+            <div>
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : books.length > 0 ? (
-                    <table border="1" cellPadding="10" style={{ borderCollapse: 'collapse', width: '100%' }}>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Genre</th>
-                                <th>Publication Year</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {books.map((book) => (
-                                <tr key={book.id}>
-                                    <td>{book.title}</td>
-                                    <td>{book.author}</td>
-                                    <td>{book.genre}</td>
-                                    <td>{book.publication_year}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <div className="card">
+                        <div className="card-body">
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Genre</th>
+                                        <th>Publication Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {books.map((book) => (
+                                        <tr key={book.id}>
+                                            <td>{book.title}</td>
+                                            <td>{book.author}</td>
+                                            <td>{book.genre}</td>
+                                            <td>{book.publication_year}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 ) : (
                     <p>No books found</p>
                 )}
