@@ -6,14 +6,13 @@ import "bootstrap/dist/css/bootstrap.css";
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState({ username: '', email: '', role: '' });
-    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const token = localStorage.getItem('token');
 
-    // Fetch users from the backend
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:5000/users/fetchUsers', {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/users/fetchUsers`, {
                 headers: {
-                    'Authorization': `Bearer ${token}` // Include token in the header
+                    'Authorization': `Bearer ${token}`
                 },
             });
 
@@ -41,21 +40,20 @@ const ManageUsers = () => {
         }));
     };
 
-    // Add user
     const addUser = async () => {
         try {
-            const response = await fetch('http://localhost:5000/users/addUser', {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/users/addUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Include token in the header
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(user),
             });
 
             if (response.ok) {
                 alert('User added successfully');
-                fetchUsers(); // Refetch updated user list
+                fetchUsers();
                 setUser({ username: '', email: '', role: '' });
             } else {
                 const error = await response.json();
@@ -70,10 +68,10 @@ const ManageUsers = () => {
     // Delete user
     const deleteUser = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/deleteUser/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/users/deleteUser/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${token}` // Include token in the header
+                    'Authorization': `Bearer ${token}`
                 },
             });
 

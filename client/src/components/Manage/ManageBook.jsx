@@ -9,12 +9,11 @@ const ManageBooks = () => {
     const [editing, setEditing] = useState(false);
     const [editBookId, setEditBookId] = useState(null);
 
-    // Fetch books from the server
     useEffect(() => {
         const fetchBooks = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5000/manage/fetchBooks', {
+                const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/manage/fetchBooks`, {
                     method: 'GET',
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -22,7 +21,7 @@ const ManageBooks = () => {
                 if (!response.ok) {
                     if (response.status === 401) {
                         alert('Session expired. Please log in again.');
-                        window.location.href = '/login'; // Redirect to login
+                        window.location.href = '/login';
                     } else {
                         throw new Error('Failed to fetch books');
                     }
@@ -38,7 +37,6 @@ const ManageBooks = () => {
         fetchBooks();
     }, []);
 
-    // Handle input changes for the book form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setBook((prevBook) => ({
@@ -47,11 +45,10 @@ const ManageBooks = () => {
         }));
     };
 
-    // Add a new book
     const addBook = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/manage/addBook', {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/manage/addBook`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,11 +72,10 @@ const ManageBooks = () => {
         }
     };
 
-    // Update an existing book
     const updateBook = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/manage/updateBook', {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/manage/updateBook`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,7 +105,7 @@ const ManageBooks = () => {
     const deleteBook = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/manage/deleteBook/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/manage/deleteBook/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` },
             });

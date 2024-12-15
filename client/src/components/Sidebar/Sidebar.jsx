@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -16,16 +15,19 @@ const routes = [
         path: "/searchbook",
         name: "Search Book",
         icon: <FaSearch />,
+        roles: ['user', 'admin'], // Accessible by user and admin
     },
     {
         path: "/managebook",
         name: "Manage Book",
         icon: <FaFileAlt />,
+        roles: ['admin'], // Only accessible by admin
     },
     {
         path: "/manageuser",
         name: "Administrator",
         icon: <FaUser />,
+        roles: ['admin'], // Only accessible by admin
     },
 ];
 
@@ -50,7 +52,7 @@ const SideBar = ({ children }) => {
         },
     };
 
-    const { logout } = useContext(AuthContext);
+    const { logout, user } = useContext(AuthContext); // Access user from context
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -96,29 +98,31 @@ const SideBar = ({ children }) => {
                         </div>
                     </div>
                     <section className="routes">
-                        {routes.map((route, index) => (
-                            <NavLink
-                                to={route.path}
-                                key={index}
-                                className="link"
-                                activeclassname="active"
-                            >
-                                <div className="icon">{route.icon}</div>
-                                <AnimatePresence>
-                                    {isOpen && (
-                                        <motion.div
-                                            variants={showAnimation}
-                                            initial="hidden"
-                                            animate="show"
-                                            exit="hidden"
-                                            className="link_text"
-                                        >
-                                            {route.name}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </NavLink>
-                        ))}
+                        {routes
+                            .filter(route => route.roles.includes(user.role)) // Filter based on user's role
+                            .map((route, index) => (
+                                <NavLink
+                                    to={route.path}
+                                    key={index}
+                                    className="link"
+                                    activeclassname="active"
+                                >
+                                    <div className="icon">{route.icon}</div>
+                                    <AnimatePresence>
+                                        {isOpen && (
+                                            <motion.div
+                                                variants={showAnimation}
+                                                initial="hidden"
+                                                animate="show"
+                                                exit="hidden"
+                                                className="link_text"
+                                            >
+                                                {route.name}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </NavLink>
+                            ))}
                     </section>
                     <section className="logout">
                         <NavLink

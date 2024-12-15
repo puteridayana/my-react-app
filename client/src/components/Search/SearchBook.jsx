@@ -15,9 +15,9 @@ const SearchBooks = () => {
             return;
         }
 
-        setIsLoading(true); // Start loading
+        setIsLoading(true);
         try {
-            const { data } = await axios.post('http://localhost:5000/search/searchBookResults', {
+            const { data } = await axios.post(`${process.env.REACT_APP_CALLBACK_URL}/search/searchBookResults`, {
                 searchTitle: searchTitle,
                 searchAuthor: searchAuthor,
             });
@@ -33,11 +33,7 @@ const SearchBooks = () => {
     return (
         <div>
             <h5 className="title">Search Books</h5>
-
-            {/* Display error message if present */}
             {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
-
-            {/* Input fields */}
             <div className="d-flex mb-3">
                 <input
                     type="text"
@@ -63,8 +59,6 @@ const SearchBooks = () => {
                     Search
                 </button>
             </div>
-
-            {/* Results section */}
             <div>
                 {isLoading ? (
                     <p>Loading...</p>
