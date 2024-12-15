@@ -3,14 +3,13 @@ import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
     FaBars,
-    FaHome,
     FaFileAlt,
     FaSearch,
     FaSignOutAlt,
     FaUser,
 } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
-import { AuthContext } from "../../context/AuthContext"; // Ensure the correct path to your AuthContext
+import { AuthContext } from "../../context/AuthContext";
 
 const routes = [
     {

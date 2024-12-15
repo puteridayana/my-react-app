@@ -3,22 +3,42 @@ import { Button, ListGroup } from 'react-bootstrap';
 import '../../styles/style.css';
 import "bootstrap/dist/css/bootstrap.css";
 
-
 const ManageBooks = () => {
     const [books, setBooks] = useState([]);
     const [book, setBook] = useState({ title: '', author: '', genre: '', publicationYear: '' });
     const [editing, setEditing] = useState(false);
     const [editBookId, setEditBookId] = useState(null);
 
+    // Fetch books from the server
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await fetch('http://localhost:5000/manage/fetchBooks');
-            const data = await response.json();
-            setBooks(data);
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:5000/manage/fetchBooks', {
+                    method: 'GET',
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        alert('Session expired. Please log in again.');
+                        window.location.href = '/login'; // Redirect to login
+                    } else {
+                        throw new Error('Failed to fetch books');
+                    }
+                }
+
+                const data = await response.json();
+                setBooks(data);
+            } catch (error) {
+                console.error(error);
+                alert('Error fetching books');
+            }
         };
         fetchBooks();
     }, []);
 
+    // Handle input changes for the book form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setBook((prevBook) => ({
@@ -27,50 +47,84 @@ const ManageBooks = () => {
         }));
     };
 
+    // Add a new book
     const addBook = async () => {
-        const response = await fetch('http://localhost:5000/manage/addBook', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(book),
-        });
-        const data = await response.json();
-        if (response.ok) {
-            alert('Book added successfully');
-            setBooks([...books, { id: data.id, ...book }]);
-            setBook({ title: '', author: '', genre: '', publicationYear: '' });
-        } else {
-            alert(data.message || 'Error adding book');
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/manage/addBook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(book),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Book added successfully');
+                setBooks([...books, { id: data.id, ...book }]);
+                setBook({ title: '', author: '', genre: '', publicationYear: '' });
+            } else {
+                alert(data.message || 'Error adding book');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error adding book');
         }
     };
 
+    // Update an existing book
     const updateBook = async () => {
-        const response = await fetch('http://localhost:5000/manage/updateBook', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...book, bookId: editBookId }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-            alert('Book updated successfully');
-            setBooks(books.map((b) => (b.id === editBookId ? { ...b, ...book } : b)));
-            setBook({ title: '', author: '', genre: '', publicationYear: '' });
-            setEditing(false);
-            setEditBookId(null);
-        } else {
-            alert(data.message || 'Error updating book');
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/manage/updateBook', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ ...book, bookId: editBookId }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Book updated successfully');
+                setBooks(books.map((b) => (b.id === editBookId ? { ...b, ...book } : b)));
+                setBook({ title: '', author: '', genre: '', publicationYear: '' });
+                setEditing(false);
+                setEditBookId(null);
+            } else {
+                alert(data.message || 'Error updating book');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error updating book');
         }
     };
 
+    // Delete a book
     const deleteBook = async (id) => {
-        const response = await fetch(`http://localhost:5000/manage/deleteBook/${id}`, {
-            method: 'DELETE',
-        });
-        const data = await response.json();
-        if (response.ok) {
-            alert('Book deleted successfully');
-            setBooks(books.filter((book) => book.id !== id));
-        } else {
-            alert(data.message || 'Error deleting book');
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:5000/manage/deleteBook/${id}`, {
+                method: 'DELETE',
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Book deleted successfully');
+                setBooks(books.filter((book) => book.id !== id));
+            } else {
+                alert(data.message || 'Error deleting book');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error deleting book');
         }
     };
 
@@ -151,7 +205,6 @@ const ManageBooks = () => {
                 </button>
             </div>
         </div>
-
     );
 };
 

@@ -30,9 +30,69 @@
   margin-top: 15px;
 }
 
+.titlecard {
+  display: grid; 
+  place-items: center; 
+  font-weight: bold;
+  color: #2b59a2;
+  font-size: 30px;
+}
+
 input[type="text"] {
   width: 230px;
 }
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+}
+
+.card-login {
+  background-color: #fff;
+  border-radius: 20px; 
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); 
+  padding: 20px;
+  border : 1px solid black;
+  text-align: center;
+  width: auto !important;
+  min-height: 200px;
+}
+
+.label-small {
+  font-size: 16px; 
+}
+
+h5 {
+  margin-bottom: 20px;
+}
+
+.statement {
+  font-size: 15px;
+}
+
+.input-field {
+  width: 100%;
+}
+
+.card-container .card-login .content .mb-3 .password,
+.card-container .card-login .content .mb-3 .username {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+      background-size: 100% 120%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  body {
+      background-size: 100% 130%;
+  }
+} 
 
 .param-div {
   width: 120px;

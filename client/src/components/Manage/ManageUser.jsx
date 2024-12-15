@@ -6,13 +6,24 @@ import "bootstrap/dist/css/bootstrap.css";
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState({ username: '', email: '', role: '' });
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
     // Fetch users from the backend
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:5000/users/fetchUsers');
-            const data = await response.json();
-            setUsers(data);
+            const response = await fetch('http://localhost:5000/users/fetchUsers', {
+                headers: {
+                    'Authorization': `Bearer ${token}` // Include token in the header
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUsers(data);
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Error fetching users');
+            }
         } catch (error) {
             console.error('Error fetching users:', error);
         }
@@ -35,9 +46,13 @@ const ManageUsers = () => {
         try {
             const response = await fetch('http://localhost:5000/users/addUser', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Include token in the header
+                },
                 body: JSON.stringify(user),
             });
+
             if (response.ok) {
                 alert('User added successfully');
                 fetchUsers(); // Refetch updated user list
@@ -49,6 +64,29 @@ const ManageUsers = () => {
         } catch (error) {
             console.error('Error adding user:', error);
             alert('An error occurred while adding the user.');
+        }
+    };
+
+    // Delete user
+    const deleteUser = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/users/deleteUser/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}` // Include token in the header
+                },
+            });
+
+            if (response.ok) {
+                alert('User deleted successfully');
+                setUsers(users.filter((user) => user.id !== id));
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Error deleting user');
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            alert('An error occurred while deleting the user.');
         }
     };
 
@@ -92,13 +130,22 @@ const ManageUsers = () => {
             </div>
 
             <h5 className="title2">Users List</h5>
-            <ul>
+            <ListGroup>
                 {users.map((user) => (
-                    <li key={user.id}>
-                        {user.username} ({user.email}) - {user.role}
-                    </li>
+                    <ListGroup.Item key={user.id} className="d-flex justify-content-between align-items-center">
+                        <span>
+                            {user.username} ({user.email}) - {user.role}
+                        </span>
+                        <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => deleteUser(user.id)}
+                        >
+                            Delete
+                        </Button>
+                    </ListGroup.Item>
                 ))}
-            </ul>
+            </ListGroup>
         </div>
     );
 };

@@ -11,7 +11,7 @@ const register = async (req, res) => {
     const query = 'INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, ?, NOW())';
     const values = [username, email, hashedPassword, role];
 
-    await dbconnection.query(query, values); // Directly await query
+    await dbconnection.query(query, values); 
 
     res.status(201).send('User registered successfully');
   } catch (error) {

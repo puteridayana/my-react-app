@@ -6,10 +6,10 @@ import ManageBooks from './components/Manage/ManageBook';
 import ManageUsers from './components/Manage/ManageUser';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import { AuthContext } from './context/AuthContext';  // Import AuthContext
+import { AuthContext } from './context/AuthContext';  
 import './App.css';
 
-// Protected Route Component
+
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useContext(AuthContext);
 
@@ -25,12 +25,12 @@ const ProtectedRoute = ({ children, roles }) => {
 };
 
 const App = () => {
-  const { user } = useContext(AuthContext);  // Get the current authenticated user
+  const { user } = useContext(AuthContext);  
 
   return (
     <Router>
       <div className="app-container">
-        {user && <SideBar />}  {/* Conditionally render the sidebar */}
+        {user && <SideBar />}  
         <div className="content-container">
           <Routes>
             <Route path="/login" element={<Login />} />
