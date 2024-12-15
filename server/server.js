@@ -20,8 +20,6 @@ app.use(cors({ origin: true, credentials: true }));
 app.use('/auth', authRoutes);  
 app.use('/search', searchRoutes);  
 
-
-
 // //Protected routes
 app.use('/manage', authMiddleware.verifyToken, manageRoutes);  
 app.use('/users', authMiddleware.verifyToken, usersRoutes);   

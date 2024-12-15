@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const SearchBooks = () => {
-    const [searchTitle, setSearchTitle] = useState(''); // For title search
-    const [searchAuthor, setSearchAuthor] = useState(''); // For author search
-    const [books, setBooks] = useState([]); // To store search results
-    const [isLoading, setIsLoading] = useState(false); // For loading state
-    const [error, setError] = useState(null); // For error messages
+    const [searchTitle, setSearchTitle] = useState('');
+    const [searchAuthor, setSearchAuthor] = useState('');
+    const [books, setBooks] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleSearch = async () => {
-        setError(null); // Clear any previous error
+        setError(null);
         if (!searchTitle && !searchAuthor) {
             setError('Please enter a title or author to search.');
             return;
@@ -21,12 +21,12 @@ const SearchBooks = () => {
                 searchTitle: searchTitle,
                 searchAuthor: searchAuthor,
             });
-            setBooks(data); // Update the state with the search results
+            setBooks(data);
         } catch (err) {
             console.error('Error searching books:', err);
             setError('Error searching books. Please try again later.');
         } finally {
-            setIsLoading(false); // Stop loading
+            setIsLoading(false);
         }
     };
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from "react";
-import { NavLink, Navigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
     FaBars,
     FaHome,
@@ -10,7 +10,7 @@ import {
     FaUser,
 } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
-import axios from "axios";
+import { AuthContext } from "../../context/AuthContext"; // Ensure the correct path to your AuthContext
 
 const routes = [
     {
@@ -33,6 +33,7 @@ const routes = [
 const SideBar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+
     const showAnimation = {
         hidden: {
             width: 0,
@@ -50,14 +51,16 @@ const SideBar = ({ children }) => {
         },
     };
 
-    const handleLogout = () => {
-        axios
-            .post(`${process.env.REACT_APP_CALLBACK_URL}/auth/logout`)
-            .then((res) => {
-                location.reload(true);
-            })
-            .catch((err) => console.log(err));
-        console.log("Logout clicked");
+    const { logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
     };
 
     return (
@@ -72,7 +75,7 @@ const SideBar = ({ children }) => {
                             damping: 10,
                         },
                     }}
-                    className={`sidebar `}
+                    className="sidebar"
                 >
                     <div className="top_section">
                         <AnimatePresence>
@@ -120,10 +123,9 @@ const SideBar = ({ children }) => {
                     </section>
                     <section className="logout">
                         <NavLink
-                            to="/logout"
+                            to="#"
                             onClick={handleLogout}
                             className="link-logout"
-                            activeclassname="active"
                         >
                             <div className="icon">
                                 <FaSignOutAlt />
