@@ -101,7 +101,6 @@ const ManageBooks = () => {
         }
     };
 
-    // Delete a book
     const deleteBook = async (id) => {
         try {
             const token = localStorage.getItem('token');

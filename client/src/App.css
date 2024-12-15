@@ -1,36 +1,39 @@
+/* Reset default margin and padding */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-
+/* Container for the whole app */
 .app-container {
   display: flex;
   background-color: #e4ebf0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 100vh; 
-  
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent content overflow from affecting layout */
 }
 
+/* Main content area */
 main {
   padding: 10px;
   background-color: #e4ebf0;
 }
 
+/* Search container styling */
 .search-container {
   margin-left: 10px;
   margin-top: 1%;
   width: 120%;
-  
 }
+
+/* Title styling */
 .title {
   font-size: 3rem;
   display: grid;
   place-items: center;
 }
 
+/* Page directory and welcome section styling */
 .page-directory, .welcome {
   display: inline-block;
   width: 49%;
@@ -41,34 +44,40 @@ main {
   color: #2b59a2;
 }
 
-
-/* Start Sidebar */
+/* Sidebar styling */
 .sidebar {
   background: #2f2f30;
   color: white;
-  min-height: 100vh;
-  position:sticky;
-  top: 0;
-  flex: 0 0 auto;
+  position: sticky; /* Make it sticky */
+  top: 0; /* Stick to the top */
+  width: 250px; /* Set the sidebar width */
+  height: 100vh; /* Full viewport height */
+  z-index: 100; /* Ensure it's above the content */
+  overflow-y: auto; /* Allows sidebar content to scroll independently */
 }
 
+/* Top section of sidebar */
 .top_section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 15px 10px;
 }
+
 .logo {
   font-size: 18px;
   line-height: 0;
 }
+
 .bars {
   width: 30px;
 }
+
 .hide {
   display: none;
 }
 
+/* Search bar inside sidebar */
 .search {
   display: flex;
   align-items: center;
@@ -76,6 +85,7 @@ main {
   height: 30px;
   padding: 10px;
 }
+
 .search input {
   border: none;
   margin-left: 10px;
@@ -84,12 +94,14 @@ main {
   color: white;
 }
 
+/* Sidebar routes links */
 .routes {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
+
 .link {
   display: flex;
   align-items: center;
@@ -100,10 +112,6 @@ main {
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   height: 40px;
   text-decoration: none;
-}
-
-.logout {
-  margin-top: 50%;
 }
 
 .link-logout {
@@ -134,34 +142,38 @@ main {
   border-right: 4px solid white;
   background: rgb(45, 51, 89);
 }
+
 .link_text {
   white-space: nowrap;
   font-size: 15px;
 }
 
+/* Menu styling */
 .menu {
   display: flex;
   color: white;
-
   padding: 5px 10px;
   border-right: 4px solid transparent;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   justify-content: space-between;
 }
+
 .menu_item {
   display: flex;
   gap: 10px;
 }
+
 .menu_container {
   display: flex;
   flex-direction: column;
 }
+
 .menu_container .link {
   padding-left: 20px;
   border-bottom: #fff 0.5px solid;
 }
 
-/* css for page directory */
+/* Page directory styling */
 .page-directory {
   margin-top: 20px;
   margin-left: 10px;
@@ -171,6 +183,7 @@ main {
   color: #2b59a2;
   text-decoration: none;
 }
+
 .slash {
   margin: 0 5px;
   color: #2b59a2;
@@ -180,6 +193,7 @@ main {
   color: #2b59a2;
 }
 
+/* Title styling for pages */
 .title {
   display: flex;
   align-items: left;
@@ -188,6 +202,8 @@ main {
   color: #2b59a2;
   font-size: 30px;
 }
+
+/* Mobile responsiveness */
 @media only screen and (max-width: 620px) {
   /* For mobile phones: */
   .menu,
@@ -197,12 +213,15 @@ main {
   }
 }
 
+/* Sidebar container */
 .sidebar-container {
   width: 250px;  
   background-color: #f4f4f4;
 }
 
+/* Content container (main content) */
 .content-container {
   flex: 1;  
   padding: 20px;
+  overflow-y: auto; /* Allows the content to scroll independently */
 }

@@ -65,26 +65,24 @@ const ManageUsers = () => {
         }
     };
 
-    // Delete user
     const deleteUser = async (id) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/users/deleteUser/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
+
+            const data = await response.json();
 
             if (response.ok) {
                 alert('User deleted successfully');
-                setUsers(users.filter((user) => user.id !== id));
+                setUsers(users.filter(user => user.id !== id));
             } else {
-                const error = await response.json();
-                alert(error.message || 'Error deleting user');
+                alert(data.message || 'Error deleting user');
             }
         } catch (error) {
-            console.error('Error deleting user:', error);
-            alert('An error occurred while deleting the user.');
+            console.error(error);
+            alert('Error deleting user');
         }
     };
 
@@ -129,20 +127,24 @@ const ManageUsers = () => {
 
             <h5 className="title2">Users List</h5>
             <ListGroup>
-                {users.map((user) => (
-                    <ListGroup.Item key={user.id} className="d-flex justify-content-between align-items-center">
-                        <span>
-                            {user.username} ({user.email}) - {user.role}
-                        </span>
-                        <Button
-                            variant="danger"
-                            size="sm"
-                            onClick={() => deleteUser(user.id)}
-                        >
-                            Delete
-                        </Button>
-                    </ListGroup.Item>
-                ))}
+                {users.length > 0 ? (
+                    users.map((user) => (
+                        <ListGroup.Item key={user.id} className="d-flex justify-content-between align-items-center">
+                            <span>
+                                {user.username} ({user.email}) - {user.role}
+                            </span>
+                            <Button
+                                variant="danger"
+                                size="sm"
+                                onClick={() => deleteUser(user.id)}
+                            >
+                                Delete
+                            </Button>
+                        </ListGroup.Item>
+                    ))
+                ) : (
+                    <ListGroup.Item>No users found</ListGroup.Item>
+                )}
             </ListGroup>
         </div>
     );
