@@ -31,7 +31,7 @@ const SearchBooks = () => {
     };
 
     return (
-        <div className="container">
+        <div>
             <h5 className="title">Search Books</h5>
 
             {/* Display error message if present */}

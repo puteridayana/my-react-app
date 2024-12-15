@@ -5,7 +5,7 @@
 }
 
 
-.main-container {
+.app-container {
   display: flex;
   background-color: #e4ebf0;
   overflow-y: auto;
@@ -197,3 +197,12 @@ main {
   }
 }
 
+.sidebar-container {
+  width: 250px;  
+  background-color: #f4f4f4;
+}
+
+.content-container {
+  flex: 1;  
+  padding: 20px;
+}

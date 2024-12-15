@@ -6,7 +6,7 @@ import ManageBooks from './components/Manage/ManageBook';
 import ManageUsers from './components/Manage/ManageUser';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import AuthContextProvider, { AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/AuthContext';  // Import AuthContext
 import './App.css';
 
 // Protected Route Component
@@ -24,34 +24,39 @@ const ProtectedRoute = ({ children, roles }) => {
   return children;
 };
 
-const App = () => (
-  <AuthContextProvider>
+const App = () => {
+  const { user } = useContext(AuthContext);  // Get the current authenticated user
+
+  return (
     <Router>
-      <SideBar>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/searchbook" element={<SearchBooks />} />
-          <Route
-            path="/managebook"
-            element={
-              <ProtectedRoute roles={['admin']}>
-                <ManageBooks />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/manageuser"
-            element={
-              <ProtectedRoute roles={['admin']}>
-                <ManageUsers />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </SideBar>
+      <div className="app-container">
+        {user && <SideBar />}  {/* Conditionally render the sidebar */}
+        <div className="content-container">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/searchbook" element={<SearchBooks />} />
+            <Route
+              path="/managebook"
+              element={
+                <ProtectedRoute roles={['admin']}>
+                  <ManageBooks />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/manageuser"
+              element={
+                <ProtectedRoute roles={['admin']}>
+                  <ManageUsers />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </div>
     </Router>
-  </AuthContextProvider>
-);
+  );
+};
 
 export default App;
