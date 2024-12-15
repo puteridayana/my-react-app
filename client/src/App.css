@@ -9,8 +9,8 @@
 .app-container {
   display: flex;
   background-color: #e4ebf0;
-  height: 100vh; /* Full viewport height */
-  overflow: hidden; /* Prevent content overflow from affecting layout */
+  height: 100vh; 
+  overflow: hidden; 
 }
 
 /* Main content area */
@@ -48,12 +48,12 @@ main {
 .sidebar {
   background: #2f2f30;
   color: white;
-  position: sticky; /* Make it sticky */
-  top: 0; /* Stick to the top */
-  width: 250px; /* Set the sidebar width */
-  height: 100vh; /* Full viewport height */
-  z-index: 100; /* Ensure it's above the content */
-  overflow-y: auto; /* Allows sidebar content to scroll independently */
+  position: sticky; 
+  top: 0; 
+  width: 250px; 
+  height: 100vh; 
+  z-index: 100; 
+  overflow-y: auto; 
 }
 
 /* Top section of sidebar */
@@ -223,5 +223,5 @@ main {
 .content-container {
   flex: 1;  
   padding: 20px;
-  overflow-y: auto; /* Allows the content to scroll independently */
+  overflow-y: auto; 
 }
