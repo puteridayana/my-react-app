@@ -6,9 +6,8 @@ import ManageBooks from './components/Manage/ManageBook';
 import ManageUsers from './components/Manage/ManageUser';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import { AuthContext } from './context/AuthContext';  
+import { AuthContext } from './context/AuthContext';
 import './App.css';
-
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useContext(AuthContext);
@@ -25,14 +24,19 @@ const ProtectedRoute = ({ children, roles }) => {
 };
 
 const App = () => {
-  const { user } = useContext(AuthContext);  
+  const { user } = useContext(AuthContext);
 
   return (
     <Router>
       <div className="app-container">
-        {user && <SideBar />}  
+        {user && <SideBar />}
         <div className="content-container">
           <Routes>
+            {/* Redirect root path to login if not logged in */}
+            <Route
+              path="/"
+              element={<Navigate to={user ? '/searchbook' : '/login'} replace />}
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/searchbook" element={<SearchBooks />} />
