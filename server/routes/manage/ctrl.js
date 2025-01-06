@@ -29,10 +29,10 @@ async function addBook(req, res) {
 // Update an existing book
 async function updateBook(req, res) {
     try {
-        const { bookId } = req.params;
-        const { title, author } = req.body;
-        const sqlQuery = 'UPDATE books SET title = ?, author = ? WHERE id = ?';
-        await dbconnection.query(sqlQuery, [title, author, bookId]);
+        const { bookId } = req.params; 
+        const { title, author, genre, publicationYear } = req.body;
+        const sqlQuery = 'UPDATE books SET title = ?, author = ?, genre = ?, publication_year = ? WHERE id = ?';
+        await dbconnection.query(sqlQuery, [title, author, genre, publicationYear, bookId]);
 
         res.json({ message: 'Book updated successfully' });
     } catch (error) {

@@ -6,7 +6,7 @@ router.get('/fetchBooks', fetchBooks);
 
 router.post('/addBook', addBook);
 
-router.put('/updateBook', updateBook);
+router.put('/updateBook/:editBookId', updateBook);
 
 router.delete('/deleteBook/:bookId', deleteBook);
 

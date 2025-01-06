@@ -75,13 +75,13 @@ const ManageBooks = () => {
     const updateBook = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/manage/updateBook`, {
+            const response = await fetch(`${process.env.REACT_APP_CALLBACK_URL}/manage/updateBook/${editBookId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ ...book, bookId: editBookId }),
+                body: JSON.stringify(book),
             });
 
             const data = await response.json();
